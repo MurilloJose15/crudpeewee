@@ -1,0 +1,492 @@
+<GerenciaTelas>:
+    TelaInicial:
+    CadastroDepartamento:
+    ListarDepartamentos:
+    CadastroProjeto:
+    ListarProjetos:
+
+<TelaInicial>:
+    name: 'TelaInicial'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        canvas:
+            Color:
+                rgba: 1, 1, 1, .7
+            Rectangle:
+                source: 'logo.png'
+                pos: root.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 200
+            size_hint_x: .5
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                text: "DEPARTAMENTOS"
+                color: [0,0,0,.9]
+                font_size: "18sp"
+            Button:
+                on_release: app.root.tela_cadastro_depart(self)
+                text: 'Cadastrar'
+
+            Button:
+                on_release: app.root.tela_listar_departs()
+                text: 'Listar Departamentos'
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text: "Projetos"
+                font_size: "18sp"
+                color: [0,0,0,.9]
+
+            Button:
+                on_release: app.root.tela_cadastro_projeto()
+                text: 'Cadastrar'
+
+            Button:
+                on_release: app.root.tela_listar_projetos()
+                text: 'Listar Projetos'
+
+
+#iniciao tela cadastro departamento
+<CadastroDepartamento>:
+    name: 'CadastroDepartamento'
+
+    #variáveis globais:
+    lbl_id_depart: lblId
+    txi_nome: inputNome
+    bt_cad_atual: btCadAtual
+
+
+    AnchorLayout:
+        id: interno
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            id: interno1
+            orientation: 'vertical'
+            size_hint: [0.7, 1]
+            canvas:
+                Color:
+                    rgba: .27, .50, .72, 0.5
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: ""
+                size_hint: [1, .25]
+
+            Label:
+                text: 'ID:'
+                size_hint: [1,.20]
+
+            Label:
+                id: lblId
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: ""
+                size_hint: [1, .05]
+
+            Label:
+                text: "Nome:"
+                size_hint: [1, .20]
+
+            TextInput:
+                id: inputNome
+                hint_text: 'Informe o nome do Departamento'
+                size_hint: [1, .10]
+                multiline: False
+
+            Label:
+                text: ""
+                size_hint: [1, .15]
+
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.10]
+                Button:
+                    id: btCadAtual
+                    on_release: app.root.cadastrar_atualizar()
+                    text: 'Cadastrar'
+                    size_hint: [1, 0.15]
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint: [1, 0.15]
+
+            Label:
+                text: ""
+                size_hint: [1, .55]
+
+
+<ListarDepartamentos>:
+    name: 'ListarDepartamentos'
+
+    #variáveis
+    id_depart: inputId
+    col_id: colId
+    col_nome: colNome
+    lbl_atualizar: lblAtual
+    lbl_excluir: lblExcluir
+    grid_lista: listaDeparts
+
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .27, .50, .72, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Pesquisar Departamentos:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .5
+
+            Label:
+                text:'Id'
+
+            TextInput:
+                id: inputId
+                hint_text: 'Id para pesquisa'
+                size_hint: [1, 1]
+                multiline: False
+
+            Button:
+                on_release: app.root.buscar_departs()
+                text: 'Pesquisar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaDeparts
+            cols: 4
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: colId
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [1,1,1,1]
+
+            Label:
+                id: colNome
+                text: 'Nome'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .6
+                color: [1,1,1,1]
+
+            Label:
+                id: lblAtual
+                text: 'Atualizar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+
+            Label:
+                id: lblExcluir
+                text: 'Excluir'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+            GridLayout:
+                cols: 1
+                size_hint: [.25, 0.30]
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint_y: .5
+                    size_hint_x: .3
+
+
+<CadastroProjeto>:
+    name: "CadastroProjeto"
+
+    #variáveis globais
+    lblId: lblIdProjeto
+    txi_nome: txtNomeProjeto
+    txi_temp: txtTempProjeto
+    sp_depart: spDepart
+    bt_cad_atual: btCadAtualProj
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: [0.7, .8]
+            canvas:
+                Color:
+                    rgba: .27, .50, .72, 0.5
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'ID:'
+                size_hint: [1,.25]
+
+            Label:
+                id: lblIdProjeto
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nome:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: txtNomeProjeto
+                hint_text: 'Nome do Projeto...'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Tempo Estimado:'
+                size_hint: [1, .25]
+            TextInput:
+                id: txtTempProjeto
+                hint_text: 'dd/mm/aaaa'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Departamento:'
+                size_hint: [1, .25]
+
+            Spinner:
+                id: spDepart
+                text: 'Selecione...'
+                size_hint: [1,.15]
+                height: "15dp"
+                background_color:(0,0,0,.5)
+                color: [1,1,1,1]
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.25]
+                padding : [0,20,0,0]
+
+                Button:
+                    id: btCadAtualProj
+                    on_release: app.root.cadastrar_atualizar_projeto()
+                    text: 'Cadastrar'
+                    size_hint: [1, 0.25]
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint: [1, 0.25]
+
+
+<ListarProjetos>:
+    name: "ListarProjetos"
+
+    #variáveis globais
+    chk_pesq_id: chkPesqId
+    chk_pesq_nome: chkPesqNome
+    txi_pesq_id: txi_pesq_id
+    txi_pesq_nome: txi_pesq_nome
+    gl_pesquisa_id: pesqId
+    gl_pesquisa_nome: pesqNome
+    layout_lista_projetos: listaProjetos
+    pesq: pesquisas
+
+    BoxLayout:
+        id: pesquisas
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .27, .50, .72, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Pesquisar Projetos:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: .46, .53, .6, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            cols: 4
+            Label:
+                text: "Pesquisar por Id"
+                color: [1,1,1,1]
+            CheckBox:
+                group: "tipoPesq"
+                id: chkPesqId
+                value: "id"
+                size_hint: [1, .25]
+                active: True
+                on_active: app.root._tela_projeto.alternar_pesq(self.value)
+
+            Label:
+                text: "Pesquisar por Nome"
+                color: [1,1,1,1]
+            CheckBox:
+                group: "tipoPesq"
+                id: chkPesqNome
+                value: "nome"
+                size_hint: [1, .25]
+                on_active: app.root._tela_projeto.alternar_pesq(self.value)
+
+        GridLayout:
+            id: pesqId
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .7
+            Label:
+                text:'Id'
+            TextInput:
+                id: txi_pesq_id
+                hint_text: 'Id para pesquisa'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscar_projetos()
+                text: 'Pesquisar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: pesqNome
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .7
+            Label:
+                text:'Nome'
+            TextInput:
+                id: txi_pesq_nome
+                hint_text: 'Nome para pesquisa'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscar_projetos_nome(txi_pesq_nome.text)
+                text: 'Pesquisar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaProjetos
+            cols: 6
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: col_id
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+
+            Label:
+                id: col_nome
+                text: 'Nome'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .4
+                color: [1,1,1,1]
+            Label:
+                id: col_temp_projeto
+                text: 'Prazo'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+            Label:
+                id: col_depart
+                text: 'Departamento'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+            Label:
+                id: lbl_atual
+                text: 'Atualizar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+            Label:
+                id: lbl_excluir
+                text: 'Excluir'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [1,1,1,1]
+
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            Button:
+                on_release: app.root.tela_inicial()
+                text: 'Tela Inicial'
+                size_hint_y: .5
+                size_hint_x: .3
